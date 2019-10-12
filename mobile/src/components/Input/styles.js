@@ -5,6 +5,7 @@ export const Container = styled.View`
   height: 46px;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 
 export const InputLabel = styled.Text`

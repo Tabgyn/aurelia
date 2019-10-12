@@ -7,8 +7,8 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Auth: createSwitchNavigator({
-        SignIn,
         SignUp,
+        SignIn,
       }),
     },
     {
