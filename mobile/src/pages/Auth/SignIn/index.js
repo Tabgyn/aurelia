@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import Background from '~/components/Background';
 
@@ -21,7 +21,11 @@ import {
 } from '../styles';
 import HorizontalLine from '~/components/HorizontalLine';
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
+  const passwordRef = useRef();
+
+  function handleSubmit() {}
+
   return (
     <Background>
       <Container>
@@ -36,13 +40,26 @@ export default function SignIn() {
             keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
           />
-          <FormInput label="password" placeholder="******" secureTextEntry />
+          <FormInput
+            label="password"
+            placeholder="******"
+            secureTextEntry
+            ref={passwordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+          />
           <RememberBox>
             <RememberText>Remember me</RememberText>
             <RememberButton />
           </RememberBox>
-          <FormButton backgroundColor="#fff" textColor="#EB992E">
+          <FormButton
+            backgroundColor="#fff"
+            textColor="#EB992E"
+            onPress={handleSubmit}
+          >
             Sign in
           </FormButton>
         </Form>
@@ -51,7 +68,7 @@ export default function SignIn() {
         <HorizontalLine color="#fff" lineHeight={2} />
         <FooterContent>
           <FooterText>New to this expererience?</FooterText>
-          <SignLink>
+          <SignLink onPress={() => navigation.navigate('SignUp')}>
             <SignLinkText>Sign up</SignLinkText>
           </SignLink>
         </FooterContent>

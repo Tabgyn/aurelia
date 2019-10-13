@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CheckBox } from 'react-native-elements';
 
 import Background from '~/components/Background';
@@ -19,7 +19,13 @@ import {
 } from '../styles';
 import HorizontalLine from '~/components/HorizontalLine';
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmRef = useRef();
+
+  function handleSubmit() {}
+
   return (
     <Background>
       <Container>
@@ -33,6 +39,8 @@ export default function SignUp() {
             placeholder="kingjohnny"
             autoCorrect={false}
             autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current.focus()}
           />
           <FormInput
             label="email"
@@ -40,12 +48,24 @@ export default function SignUp() {
             keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
+            ref={emailRef}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
           />
-          <FormInput label="password" placeholder="******" secureTextEntry />
+          <FormInput
+            label="password"
+            placeholder="******"
+            secureTextEntry
+            ref={passwordRef}
+            returnKeyType="next"
+            onSubmitEditing={() => confirmRef.current.focus()}
+          />
           <FormInput
             label="confirm password"
             placeholder="******"
             secureTextEntry
+            ref={confirmRef}
+            returnKeyType="next"
           />
           <CheckBox
             title="I Accept Term & Conditions"
@@ -63,7 +83,11 @@ export default function SignUp() {
             }}
             uncheckedColor="#fff"
           />
-          <FormButton backgroundColor="#fff" textColor="#EB992E">
+          <FormButton
+            backgroundColor="#fff"
+            textColor="#EB992E"
+            onPress={handleSubmit}
+          >
             Sign up
           </FormButton>
         </Form>
@@ -72,7 +96,7 @@ export default function SignUp() {
         <HorizontalLine color="#fff" lineHeight={2} />
         <FooterContent>
           <FooterText>Already signed?</FooterText>
-          <SignLink>
+          <SignLink onPress={() => navigation.navigate('SignIn')}>
             <SignLinkText>Sign in</SignLinkText>
           </SignLink>
         </FooterContent>
